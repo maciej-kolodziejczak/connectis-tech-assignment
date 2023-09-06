@@ -1,7 +1,5 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { generateData, generateDataFail } from "../lib/generateData";
-import { calculatePoints } from "../lib/calculatePoints";
-import { awardPoints } from "../lib/awardPoints";
 
 /**
  * @typedef {(import ("../lib/generateData").Customer)} Customer
