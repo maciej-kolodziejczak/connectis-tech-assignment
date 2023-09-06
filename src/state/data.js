@@ -1,5 +1,7 @@
 import { createContext, useState, useEffect, useContext } from "react";
 import { generateData, generateDataFail } from "../lib/generateData";
+import { calculatePoints } from "../lib/calculatePoints";
+import { awardPoints } from "../lib/awardPoints";
 
 /**
  * @typedef {(import ("../lib/generateData").Customer)} Customer
@@ -17,6 +19,9 @@ import { generateData, generateDataFail } from "../lib/generateData";
 const DataProviderContext = createContext(null); // @todo fix this
 
 export function DataProvider({ children }) {
+  /**
+   * @type {[Customer[], (data: Customer[]) => void]}
+   */
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 

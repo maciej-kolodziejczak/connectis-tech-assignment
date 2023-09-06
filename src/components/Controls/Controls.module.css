@@ -1,0 +1,18 @@
+.controls {
+  display: flex;
+  gap: 0.5em;
+
+  .button {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 0.25em;
+    color: #333;
+    cursor: pointer;
+    padding: 0.5em 1em;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #eee;
+    }
+  }
+}

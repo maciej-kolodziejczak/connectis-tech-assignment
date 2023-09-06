@@ -6,7 +6,7 @@ import { faker } from "@faker-js/faker";
  * @typedef {{
  *  id: string,
  *  amount: number,
- *  date: string,
+ *  date: Date,
  * }} Transaction
  *
  * @returns {Transaction}
@@ -15,7 +15,7 @@ function generateTransaction() {
   return {
     id: faker.string.uuid(),
     amount: faker.number.int({ min: 1, max: 1000 }),
-    date: faker.date.recent({ days: 90 }).toISOString(),
+    date: faker.date.recent({ days: 90 }),
   };
 }
 
@@ -25,23 +25,45 @@ function generateTransaction() {
  * @typedef {{
  *  id: string,
  *  name: string,
- *  transactions: Transaction[],
+ *  transactions: {
+  *    month: number,
+  *    year: number,
+  *    transactions: Transaction[]
+ *  }[],
  * }} Customer
  *
  * @returns {Customer}
  */
 function generateCustomer() {
-  const transactionAmount = faker.number.int({ min: 1, max: 50 });
-  const transactions = Array.from(
-    { length: transactionAmount },
-    generateTransaction
-  );
-
   return {
     id: faker.string.uuid(),
     name: faker.person.fullName(),
-    transactions,
+    transactions: [
+      {
+        month: 8,
+        year: 2023,
+        transactions: generateTransactions(),
+      },
+      {
+        month: 7,
+        year: 2023,
+        transactions: generateTransactions(),
+      },
+      {
+        month: 6,
+        year: 2023,
+        transactions: generateTransactions(),
+      },
+    ],
   };
+}
+
+/**
+ * @returns {Transaction[]}
+ */
+function generateTransactions() {
+  const transactionAmount = faker.number.int({ min: 1, max: 50 });
+  return Array.from({ length: transactionAmount }, generateTransaction);
 }
 
 /**
