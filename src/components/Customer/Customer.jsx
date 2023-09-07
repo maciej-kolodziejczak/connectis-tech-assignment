@@ -1,23 +1,4 @@
-import { calculatePoints } from "../../lib/calculatePoints";
-import { awardPoints } from "../../lib/awardPoints";
-
-/**
- * @typedef {import ('../../lib/generateData').Customer} Customer
- * @param {Customer} customer
- */
-function useCustomerPoints(customer) {
-  const calcFn = calculatePoints(awardPoints);
-
-  function generateMonthName(year, month) {
-    const date = new Date(year, month - 1);
-    return date.toLocaleString("default", { month: "long", year: "numeric" });
-  }
-
-  return customer.transactions.map((period) => ({
-    period: generateMonthName(period.year, period.month),
-    points: calcFn(period.transactions),
-  }));
-}
+import { useCustomerPoints } from "./useCustomerPoints";
 
 /**
  * @typedef {(import ('../../lib/generateData').Customer)} Customer
