@@ -6,6 +6,7 @@ import { generateData, generateDataFail } from "../lib/generateData";
  * @typedef {{
  *  isLoading: boolean;
  *  data: Customer[];
+ *  error: Error | null,
  *  refresh: () => void;
  *  fail: () => void;
  * }} ContextValue
@@ -21,6 +22,7 @@ export function DataProvider({ children }) {
    * @type {[Customer[], (data: Customer[]) => void]}
    */
   const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
 
   /**
@@ -30,9 +32,11 @@ export function DataProvider({ children }) {
     try {
       const data = await fetcher();
       setData(data);
+      setError(null);
       setIsLoading(false);
     } catch (err) {
-      throw new Error(err);
+      setError(new Error(err));
+      setIsLoading(false);
     }
   }
 
@@ -41,6 +45,7 @@ export function DataProvider({ children }) {
    */
   const contextValue = {
     data,
+    error,
     isLoading,
     refresh: () => {
       fetchData(generateData);
