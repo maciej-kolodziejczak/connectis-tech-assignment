@@ -2,7 +2,7 @@ import { Customers } from "./components/Customers/Customers";
 import { Controls } from "./components/Controls/Controls";
 import { useDataState } from "./state/data";
 
-function App() {
+export function App() {
   const { isLoading } = useDataState();
 
   return (
@@ -12,5 +12,3 @@ function App() {
     </>
   );
 }
-
-export default App;
