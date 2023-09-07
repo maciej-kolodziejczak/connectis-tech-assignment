@@ -14,7 +14,7 @@ import { generateData, generateDataFail } from "../lib/generateData";
 /**
  * @type {React.Context<ContextValue>}
  */
-const DataProviderContext = createContext(null); // @todo fix this
+export const DataProviderContext = createContext(null); // @todo fix this
 
 export function DataProvider({ children }) {
   /**
@@ -27,9 +27,13 @@ export function DataProvider({ children }) {
    * @param {() => Promise<Customer[]>} fetcher
    */
   async function fetchData(fetcher) {
-    const data = await fetcher();
-    setData(data);
-    setIsLoading(false);
+    try {
+      const data = await fetcher();
+      setData(data);
+      setIsLoading(false);
+    } catch (err) {
+      throw new Error(err);
+    }
   }
 
   /**

@@ -12,11 +12,11 @@ export function Customer({ customer }) {
       <h2>{customer.name}</h2>
       <ul>
         {points.map(({ period, points }) => (
-          <li key={`${customer.id}-${period}`}>
+          <li key={`${customer.id}-${period}`} data-testid="period-points">
             {period}: {points}
           </li>
         ))}
-        <li>
+        <li data-testid="total-points">
           <strong>
             Total: {points.reduce((acc, { points }) => acc + points, 0)}
           </strong>
